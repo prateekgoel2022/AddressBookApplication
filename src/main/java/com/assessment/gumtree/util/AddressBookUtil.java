@@ -23,8 +23,8 @@ public class AddressBookUtil {
                     .forEach(record -> addressBookList.add(new AddressBook(record[0].trim(),
                             record[1].trim(),
                             convertStringDateToLocalDate(record[2].trim()))));
-        }catch(IOException exception){
-            //throw new FileNotFoundException("");
+        }catch(IOException e){
+            throw new RuntimeException(e);
         }
 
         return addressBookList;

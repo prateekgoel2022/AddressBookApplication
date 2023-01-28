@@ -44,11 +44,17 @@ public class AddressBookApplication {
 	public long findAgeDifferenceInDays(String name1, String name2)
 	{
 		Predicate<AddressBook> nameFilterPredicate = addressBook ->
-				addressBook.getName().contains(name1) || addressBook.getName().contains(name2);
+				addressBook.getName().contains(name1) ||
+						addressBook.getName().contains(name2);
 		List<AddressBook> filteredList = addressBookList.stream().
 				filter(nameFilterPredicate).collect(Collectors.toList());
-		long ageDifference = DAYS.between(filteredList.get(0).getDataOfBirth(),
-				filteredList.get(1).getDataOfBirth());
+		long ageDifference= 0;
+		if(filteredList.size() == 2) {
+			ageDifference = DAYS.between(filteredList.get(0).getDataOfBirth(),
+					filteredList.get(1).getDataOfBirth());
+		}else{
+			throw new RuntimeException("Name not found in the list");
+		}
 		return ageDifference;
 	}
 
